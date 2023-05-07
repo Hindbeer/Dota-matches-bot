@@ -1,12 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
-siteUrl = 'https://liquipedia.net/dota2/Main_Page'
-page = requests.get(url=siteUrl)
-soup = BeautifulSoup(page.text, "lxml")
+site_url = 'https://liquipedia.net/dota2/Main_Page'
 
 
 def get_match_cards():
+    page = requests.get(url=site_url)
+    soup = BeautifulSoup(page.text, "lxml")
+
     data = []
     match_cards = soup.find_all("table", class_="wikitable wikitable-striped infobox_matches_content")
 
@@ -34,12 +35,14 @@ def get_match_cards():
     return data
 
 
-def show_matches(i: int):
-    matches = get_match_cards()[i]
+def show_matches():
+    matches = get_match_cards()
+    result: str = ''
 
-    result = f"""
-{matches.get('team_left')} {matches.get('score')} {matches.get('team_right')}
-( {matches.get('games_count')} ) {matches.get('tournament')}
-    """
+    for match in matches:
+        result += f"""
+{match.get('team_left')} {match.get('score')} {match.get('team_right')}
+( {match.get('games_count')} ) {match.get('tournament')}
+        """
 
     return result

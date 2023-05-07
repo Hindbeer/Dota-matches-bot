@@ -31,5 +31,4 @@ tg профиль: @G0golMogol
 
 @dp.message_handler(text='посмотреть игры')
 async def show_matches(message: Message):
-    for i in range(0, 5):
-        await bot.send_message(message.chat.id, parser.show_matches(i))
+    await bot.send_message(message.chat.id, parser.show_matches())
