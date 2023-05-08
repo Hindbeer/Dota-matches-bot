@@ -1,11 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 site_url = 'https://liquipedia.net/dota2/Main_Page'
 
 
-def get_match_cards():
-    page = requests.get(url=site_url)
+def get_match_cards(page):
     soup = BeautifulSoup(page.text, "lxml")
 
     data = []
@@ -36,7 +36,8 @@ def get_match_cards():
 
 
 def show_matches():
-    matches = get_match_cards()
+    page = requests.get(url=site_url)
+    matches = get_match_cards(page)
     result: str = ''
 
     for match in matches:
